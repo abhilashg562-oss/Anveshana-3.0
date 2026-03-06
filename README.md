@@ -1,6 +1,9 @@
 Project Overview
 Local-Link is a hyperlocal gig marketplace that connects users with nearby service providers within a 5km radius. The platform enables plumbers, electricians, technicians, and other skilled workers to receive bookings directly from customers with minimal commission (5-10%), ensuring fair income distribution and strengthening decentralized local economies.
 
+Live Demo : http://localhost:8000
+
+
 It eliminates middlemen, reduces platform exploitation, and empowers small-scale workers through technology — built as a Progressive Web App (PWA), requiring no app installation.
 
 Features
