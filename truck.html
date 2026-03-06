@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ground Truth - Truck Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <header>
+    <h1><i class="fa-solid fa-truck"></i> Ground Truth</h1>
+    <p>VBCA Network · Mysuru, Karnataka, India — Truck Dashboard</p>
+    <nav class="header-nav">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-home"></i> Home</a>
+        <a href="truck.html" class="nav-link active"><i class="fa-solid fa-truck"></i> Truck Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="truck-dashboard">
+    <div class="truck-header">
+        <h2><i class="fa-solid fa-truck-moving"></i> Live Truck Tracker</h2>
+        <p>Real-time waste collection truck monitoring across Mysuru city</p>
+    </div>
+
+    <div class="truck-stats">
+        <div class="truck-stat-card">
+            <h3><i class="fa-solid fa-location-dot"></i> Current Area</h3>
+            <div class="stat-value" id="truck-current-area">Vijayanagar</div>
+        </div>
+        <div class="truck-stat-card">
+            <h3><i class="fa-solid fa-circle-info"></i> Status</h3>
+            <div class="stat-value" id="truck-status">En Route</div>
+        </div>
+        <div class="truck-stat-card">
+            <h3><i class="fa-solid fa-trash-can"></i> Bins Collected</h3>
+            <div class="stat-value"><span id="collected-count">2</span> / <span id="total-bins">5</span></div>
+        </div>
+    </div>
+
+    <div class="truck-progress-section">
+        <h3><i class="fa-solid fa-route"></i> Route Progress</h3>
+        <div class="route-progress-bar">
+            <div class="route-progress-fill" id="route-progress" style="width: 40%;"></div>
+        </div>
+        <p class="route-progress-text">Route completion: <span id="route-progress-text">40</span>%</p>
+    </div>
+
+    <div class="route-stops-section">
+        <h3><i class="fa-solid fa-list-check"></i> Collection Route</h3>
+        <div class="route-list" id="route-list">
+            <div class="route-stop collected">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Devaraja Market</span>
+                <span class="stop-status">Collected</span>
+            </div>
+            <div class="route-stop collected">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Gokulam</span>
+                <span class="stop-status">Collected</span>
+            </div>
+            <div class="route-stop current">
+                <i class="fa-solid fa-location-dot fa-spin"></i>
+                <span>Vijayanagar</span>
+                <span class="stop-status">En Route</span>
+            </div>
+            <div class="route-stop pending">
+                <i class="fa-solid fa-circle"></i>
+                <span>Kuvempunagar</span>
+                <span class="stop-status">Pending</span>
+            </div>
+            <div class="route-stop pending">
+                <i class="fa-solid fa-circle"></i>
+                <span>Lakshmipuram</span>
+                <span class="stop-status">Pending</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="index.html" class="btn"><i class="fa-solid fa-arrow-left"></i> Back to Monitored Waste</a>
+    </div>
+  </main>
+
+ <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <!-- Your script AFTER Firebase SDK -->
+  <script src="js/script.js"></script>
+</body>
+</html>

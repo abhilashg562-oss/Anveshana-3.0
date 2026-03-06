@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBin Monitor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fa-solid fa-trash-can"></i> SmartBin Monitor</h1>
+        <p>VVCE Network, Mysuru, Karnataka, India - Dustbin Monitor</p>
+    </header>
+
+    <main>
+        <h2><i class="fa-solid fa-map-location-dot"></i> Monitored Dustbins</h2>
+        <div class="dustbin-grid">
+            <div class="dustbin-card" data-id="bin-001">
+                <h3><i class="fa-solid fa-building-columns"></i> VVCE Campus</h3>
+                <p>Main Entrance, VVCE Mysuru</p>
+                <p>Status: <span class="status-low">Low</span></p>
+                <p>Fill Level: <span class="fill-level">23%</span></p>
+                <a href="details.html?id=bin-001" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-002">
+                <h3><i class="fa-solid fa-book-open"></i> Library Cafe</h3>
+                <p>Near Central Library, VVCE</p>
+                <p>Status: <span class="status-medium">Medium</span></p>
+                <p>Fill Level: <span class="fill-level">66%</span></p>
+                <a href="details.html?id=bin-002" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-003">
+                <h3><i class="fa-solid fa-hotel"></i> Hostel Block A</h3>
+                <p>Behind Boys Hostel A, VVCE</p>
+                <p>Status: <span class="status-high">High</span></p>
+                <p>Fill Level: <span class="fill-level">85%</span></p>
+                <a href="details.html?id=bin-003" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-004">
+                <h3><i class="fa-solid fa-wrench"></i> Workshop Area</h3>
+                <p>Mechanical Dept. Workshop, VVCE</p>
+                <p>Status: <span class="status-full">Full</span></p>
+                <p>Fill Level: <span class="fill-level">98%</span></p>
+                <a href="details.html?id=bin-004" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-005">
+                <h3><i class="fa-solid fa-utensils"></i> Canteen Exit</h3>
+                <p>Near Canteen Block, VVCE</p>
+                <p>Status: <span class="status-low">Low</span></p>
+                <p>Fill Level: <span class="fill-level">15%</span></p>
+                <a href="details.html?id=bin-005" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-006">
+                <h3><i class="fa-solid fa-futbol"></i> Sports Complex</h3>
+                <p>Adjacent to Cricket Ground, VVCE</p>
+                <p>Status: <span class="status-medium">Medium</span></p>
+                <p>Fill Level: <span class="fill-level">48%</span></p>
+                <a href="details.html?id=bin-006" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-007">
+                <h3><i class="fa-solid fa-lightbulb"></i> ECE Department</h3>
+                <p>Complex, ECE BLOCK, VVCE</p>
+                <p>Status: <span class="status-low">Low</span></p>
+                <p>Fill Level: <span class="fill-level">20%</span></p>
+                <a href="details.html?id=bin-007" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-008">
+                <h3><i class="fa-solid fa-square-parking"></i> Admin Block Parking</h3>
+                <p>Visitor Parking, Admin Building, VVCE</p>
+                <p>Status: <span class="status-high">High</span></p>
+                <p>Fill Level: <span class="fill-level">79%</span></p>
+                <a href="details.html?id=bin-008" class="btn">View Live Details</a>
+            </div>
+            <div class="dustbin-card" data-id="bin-009">
+                <h3><i class="fa-solid fa-bowl-food"></i> Food Court VVCE</h3>
+                <p>Main Food Court, VVCE Campus</p>
+                <p>Status: <span class="status-full">Full</span></p>
+                <p>Fill Level: <span class="fill-level">100%</span></p>
+                <a href="details.html?id=bin-009" class="btn">View Live Details</a>
+            </div>
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>
