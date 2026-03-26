@@ -1,12 +1,10 @@
-# TODO List - Smart Bin Monitoring System Updates
+# Waste Weight Dashboard Update Progress
 
-## Completed:
-- [x] Analyze project structure and files
-- [x] Update index.html - Header/Title changes and new Mysuru locations
-- [x] Update details.html - Branding changes
-- [x] Update js/script.js - New bin data and truck dashboard functions
-- [x] Add CSS styles for Truck Dashboard
-- [x] Create truck.html - Truck Dashboard page
+## Plan Steps:
+- [x] Step 1: Update details.html - Replace hardcoded % with kg in fill-percentage.
+- [x] Step 2: Update js/script.js - Add MAX_CAPACITY_WEIGHT, rename fillLevel→fillPercentage, add weight computation/display logic.
+- [x] Step 3: Update SmartDustbin/js/script.js - Sync changes.
+- [ ] Step 4: Verify displays show kg, statuses correct, progress bars unchanged.
+- [ ] Step 5: Test real-time updates (Firebase bin-001 + simulation).
 
-## All Tasks Completed!
-
+**Next Step:** 1/5

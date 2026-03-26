@@ -3,16 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Data Structure ---
     // This is a sample data structure for the dustbins.
     // In a real application, this data would come from a server or API connected to the IoT sensors.
-    const dustbinData = {
-        'bin-001': { name: 'VVCE Campus', location: 'Main Entrance, VVCE Mysuru', fillLevel: 23, status: 'Low' },
-        'bin-002': { name: 'Library Cafe', location: 'Near Central Library, VVCE', fillLevel: 66, status: 'Medium' },
-        'bin-003': { name: 'Hostel Block A', location: 'Behind Boys Hostel A, VVCE', fillLevel: 85, status: 'High' },
-        'bin-004': { name: 'Workshop Area', location: 'Mechanical Dept. Workshop, VVCE', fillLevel: 98, status: 'Full' },
-        'bin-005': { name: 'Canteen Exit', location: 'Near Canteen Block, VVCE', fillLevel: 15, status: 'Low' },
-        'bin-006': { name: 'Sports Complex', location: 'Adjacent to Cricket Ground, VVCE', fillLevel: 48, status: 'Medium' },
-        'bin-007': { name: 'ECE Department', location: 'Complex, ECE BLOCK, VVCE', fillLevel: 20, status: 'Low' },
-        'bin-008': { name: 'Admin Block Parking', location: 'Visitor Parking, Admin Building, VVCE', fillLevel: 79, status: 'High' },
-        'bin-009': { name: 'Food Court VVCE', location: 'Main Food Court, VVCE Campus', fillLevel: 100, status: 'Full' }
+const MAX_CAPACITY_WEIGHT = 20;
+
+function getWeight(fillPercentage) {
+  return (fillPercentage / 100 * MAX_CAPACITY_WEIGHT).toFixed(1);
+}
+
+const dustbinData = {
+        'bin-001': { name: 'VVCE Campus', location: 'Main Entrance, VVCE Mysuru', fillPercentage: 23, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Low' },
+        'bin-002': { name: 'Library Cafe', location: 'Near Central Library, VVCE', fillPercentage: 66, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Medium' },
+        'bin-003': { name: 'Hostel Block A', location: 'Behind Boys Hostel A, VVCE', fillPercentage: 85, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'High' },
+        'bin-004': { name: 'Workshop Area', location: 'Mechanical Dept. Workshop, VVCE', fillPercentage: 98, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full' },
+        'bin-005': { name: 'Canteen Exit', location: 'Near Canteen Block, VVCE', fillPercentage: 15, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Low' },
+        'bin-006': { name: 'Sports Complex', location: 'Adjacent to Cricket Ground, VVCE', fillPercentage: 48, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Medium' },
+        'bin-007': { name: 'ECE Department', location: 'Complex, ECE BLOCK, VVCE', fillPercentage: 20, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Low' },
+        'bin-008': { name: 'Admin Block Parking', location: 'Visitor Parking, Admin Building, VVCE', fillPercentage: 79, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'High' },
+        'bin-009': { name: 'Food Court VVCE', location: 'Main Food Court, VVCE Campus', fillPercentage: 100, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full' }
     };
 
     // --- Router ---
@@ -45,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusSpan.className = `status-${data.status.toLowerCase()}`;
                 
                 // Update fill level
-                fillLevelSpan.textContent = `${data.fillLevel}%`;
+                fillLevelSpan.textContent = `${getWeight(data.fillPercentage)} kg`;
             }
         });
     }
@@ -96,12 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. Update the `dustbinData` object with the new fill level and status.
         
         // --- Start of Simulation Logic (to be replaced) ---
-        let currentFill = dustbinData[binId].fillLevel;
-        let newFill = currentFill + Math.floor(Math.random() * 5) - 2; // Fluctuate fill level
-        newFill = Math.max(0, Math.min(100, newFill)); // Clamp between 0 and 100
+        let currentPercentage = dustbinData[binId].fillPercentage;
+        let newPercentage = currentPercentage + Math.floor(Math.random() * 5) - 2; // Fluctuate fill level
+        newPercentage = Math.max(0, Math.min(100, newPercentage)); // Clamp between 0 and 100
 
-        dustbinData[binId].fillLevel = newFill;
-        dustbinData[binId].status = getStatusFromFillLevel(newFill);
+        dustbinData[binId].fillPercentage = newPercentage;
+        dustbinData[binId].status = getStatusFromFillPercentage(newPercentage);
         // --- End of Simulation Logic ---
     }
 
@@ -109,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = dustbinData[binId];
         if (!data) return;
         
-        const { name, fillLevel, status } = data;
+        const { name, fillPercentage, status } = data;
         const statusClass = `status-${status.toLowerCase()}`;
         const statusColor = getComputedStyle(document.documentElement).getPropertyValue(`--${statusClass}`);
 
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dustbin-status').className = statusClass;
         
         const fillValueElement = document.getElementById('fill-level-value');
-        fillValueElement.textContent = fillLevel;
+        fillValueElement.textContent = getWeight(fillPercentage);
         fillValueElement.parentElement.style.color = statusColor;
         
         // Add class to trigger pulse animation, then remove it
@@ -128,14 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
             fillValueElement.parentElement.classList.remove('updated');
         }, 500); // Duration of the animation
 
-        document.getElementById('progress-bar-inner').style.width = `${fillLevel}%`;
+        document.getElementById('progress-bar-inner').style.width = `${fillPercentage}%`;
         document.getElementById('progress-bar-inner').style.backgroundColor = statusColor;
     }
 
-    function getStatusFromFillLevel(level) {
-        if (level >= 95) return 'Full';
-        if (level >= 75) return 'High';
-        if (level >= 40) return 'Medium';
+    function getStatusFromFillPercentage(percentage) {
+        if (percentage >= 95) return 'Full';
+        if (percentage >= 75) return 'High';
+        if (percentage >= 40) return 'Medium';
         return 'Low';
     }
 }); 
