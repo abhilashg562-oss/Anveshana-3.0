@@ -543,6 +543,499 @@ header h1 i.fa-solid {
     color: var(--text-secondary);
 }
 
+/* Truck Animation Dashboard - Scoped Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap');
+
+.truck-animation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  margin: 20px 0;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.truck-animation-container .dashboard {
+  width: 960px;
+  height: 580px;
+  background: radial-gradient(ellipse at 50% 30%, #111a2e 0%, #060a14 70%);
+  border-radius: 32px 32px 80px 80px / 32px 32px 60px 60px;
+  border: 2px solid #1a2a3a;
+  box-shadow: 0 0 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Animation specific CSS - scoped to .truck-animation-container */
+.truck-animation-container :root {
+  --hud-green: #00ff88;
+  --hud-amber: #ffaa00;
+  --hud-red: #ff4444;
+  --hud-blue: #00ccff;
+  --dash-bg: #0a0e1a;
+  --panel-bg: rgba(0,255,136,0.04);
+  --glow: 0 0 12px rgba(0,255,136,0.6);
+}
+
+.truck-animation-container * { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+.truck-animation-container body {
+  background: #050810 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh !important;
+  font-family: 'Share Tech Mono', monospace !important;
+  overflow: hidden !important;
+}
+
+.truck-animation-container .windshield {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(180deg, #0a1520 0%, #0d1e30 60%, #111a25 100%);
+  margin: 16px 40px 0;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  border: 1px solid #1a3040;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+}
+
+.truck-animation-container .sky {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, #0a0e18 0%, #0d1e35 60%, #152540 100%);
+}
+
+.truck-animation-container .stars {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 55%;
+}
+
+.truck-animation-container .star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; } 
+  to { opacity: 1; }
+}
+
+.truck-animation-container .road-container {
+  position: absolute;
+  bottom: 0; 
+  left: 0; 
+  right: 0;
+  height: 60%;
+  perspective: 400px;
+  overflow: hidden;
+}
+
+.truck-animation-container .road {
+  position: absolute;
+  bottom: 0; 
+  left: -20%; 
+  right: -20%;
+  height: 100%;
+  background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+  transform: rotateX(25deg);
+  transform-origin: bottom center;
+}
+
+.truck-animation-container .road-line {
+  position: absolute;
+  width: 6px; 
+  left: calc(50% - 3px);
+  background: #ffdd00;
+  border-radius: 3px;
+  animation: roadMove 0.4s linear infinite;
+}
+
+@keyframes roadMove {
+  from { transform: translateY(-100px); }
+  to   { transform: translateY(200px); }
+}
+
+.truck-animation-container .ground-left, 
+.truck-animation-container .ground-right {
+  position: absolute; 
+  bottom: 0;
+  width: 22%; 
+  height: 55%;
+  background: linear-gradient(90deg, #0a1e0a, #112211);
+}
+
+.truck-animation-container .ground-left { left: 0; }
+.truck-animation-container .ground-right { right: 0; }
+
+.truck-animation-container .horizon {
+  position: absolute;
+  bottom: 55%; 
+  left: 0; 
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.truck-animation-container .horizon.visible { opacity: 1; }
+
+.truck-animation-container .building {
+  background: #1a2030;
+  border: 1px solid #2a3040;
+  border-bottom: none;
+}
+
+.truck-animation-container .truck-scene {
+  position: absolute;
+  bottom: 54%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px; 
+  height: 70px;
+  z-index: 10;
+}
+
+.truck-animation-container .bin {
+  position: absolute;
+  bottom: 57%;
+  font-size: 22px;
+  z-index: 5;
+  transition: opacity 0.5s, transform 0.5s;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+.truck-animation-container .bin.collected {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.truck-animation-container .hud-overlay {
+  position: absolute; 
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.truck-animation-container .hud-panel {
+  position: absolute;
+  background: rgba(0,10,20,0.85);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--hud-green);
+  text-shadow: 0 0 8px rgba(0,255,136,0.5);
+  backdrop-filter: blur(4px);
+}
+
+.truck-animation-container .hud-tl { top: 10px; left: 10px; }
+.truck-animation-container .hud-tr { top: 10px; right: 10px; text-align: right; }
+
+.truck-animation-container .status-bar {
+  position: absolute;
+  bottom: 8px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  background: rgba(0,10,20,0.9);
+  border: 1px solid rgba(0,255,136,0.3);
+  border-radius: 20px;
+  padding: 5px 20px;
+  font-size: 11px;
+  color: var(--hud-green);
+  text-shadow: var(--glow);
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+.truck-animation-container .fill-indicator {
+  position: absolute;
+  right: 10px;
+  bottom: 30px;
+  width: 60px; 
+  height: 60px;
+}
+
+.truck-animation-container .fill-indicator svg { transform: rotate(-90deg); }
+
+.truck-animation-container .scanlines {
+  position: absolute; 
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none; 
+  z-index: 30;
+}
+
+.truck-animation-container .dash-controls {
+  height: 120px;
+  background: linear-gradient(180deg, #0d1520 0%, #0a0e18 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  border-top: 2px solid #1a2a3a;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.truck-animation-container .gauge-cluster {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.truck-animation-container .gauge {
+  text-align: center;
+}
+
+.truck-animation-container .gauge-ring {
+  width: 70px; 
+  height: 70px;
+  position: relative;
+}
+
+.truck-animation-container .gauge-label {
+  font-size: 8px;
+  color: rgba(0,255,136,0.5);
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.truck-animation-container .gauge-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  color: var(--hud-green);
+  text-shadow: var(--glow);
+  margin-top: 2px;
+}
+
+.truck-animation-container .center-display {
+  text-align: center;
+  flex: 1;
+  padding: 0 20px;
+}
+
+.truck-animation-container .route-label {
+  font-size: 8px;
+  color: rgba(0,200,255,0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.truck-animation-container .route-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  color: var(--hud-blue);
+  text-shadow: 0 0 10px rgba(0,200,255,0.6);
+  letter-spacing: 1px;
+}
+
+.truck-animation-container .route-stops {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 4px;
+}
+
+.truck-animation-container .indicators {
+  display: flex; 
+  flex-direction: column;
+  gap: 6px;
+}
+
+.truck-animation-container .ind {
+  display: flex; 
+  align-items: center; 
+  gap: 6px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+}
+
+.truck-animation-container .ind-dot {
+  width: 8px; 
+  height: 8px;
+  border-radius: 50%;
+  background: #222;
+  box-shadow: none;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.truck-animation-container .ind-dot.on-green {
+  background: var(--hud-green);
+  box-shadow: 0 0 8px var(--hud-green);
+}
+
+.truck-animation-container .ind-dot.on-amber {
+  background: var(--hud-amber);
+  box-shadow: 0 0 8px var(--hud-amber);
+}
+
+.truck-animation-container .ind-dot.on-red {
+  background: var(--hud-red);
+  box-shadow: 0 0 8px var(--hud-red);
+}
+
+.truck-animation-container .steering-column {
+  position: absolute;
+  bottom: -20px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  width: 30px; 
+  height: 80px;
+  background: #0d1520;
+  border-left: 2px solid #1a2a3a;
+  border-right: 2px solid #1a2a3a;
+}
+
+.truck-animation-container .particle {
+  position: absolute;
+  width: 4px; 
+  height: 4px;
+  border-radius: 50%;
+  background: #88aa44;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0;
+}
+
+.truck-animation-container .alert-flash {
+  position: absolute; 
+  inset: 0;
+  background: rgba(255, 68, 68, 0.08);
+  pointer-events: none; 
+  z-index: 35;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.truck-animation-container .phase-title {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  color: var(--hud-green);
+  text-shadow: var(--glow);
+  letter-spacing: 3px;
+  text-align: center;
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.truck-animation-container .raindrop {
+  position: absolute;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(100,150,255,0.4));
+  animation: rain linear infinite;
+  pointer-events: none;
+  z-index: 8;
+}
+
+@keyframes rain {
+  from { transform: translateY(-60px); }
+  to   { transform: translateY(300px); }
+}
+
+.truck-animation-container .dump-particle {
+  position: absolute;
+  width: 6px; 
+  height: 6px;
+  border-radius: 2px;
+  z-index: 25;
+  opacity: 0;
+}
+
+.truck-animation-container .minimap {
+  position: absolute;
+  left: 10px;
+  bottom: 30px;
+  width: 80px; 
+  height: 80px;
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 6px;
+  background: rgba(0,5,15,0.9);
+  overflow: hidden;
+}
+
+.truck-animation-container .minimap svg { width: 100%; height: 100%; }
+
+.truck-animation-container .truck-svg {
+  position: absolute;
+  bottom: 56%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+  z-index: 12;
+  animation: truckBounce 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes truckBounce {
+  from { bottom: 56%; }
+  to   { bottom: 57%; }
+}
+
+@keyframes rpmSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes smokeRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0.4; }
+  100% { transform: translateY(-30px) scale(3); opacity: 0; }
+}
+
+@keyframes dumpShake {
+  0%,100% { transform: translateX(-50%) rotate(0deg); }
+  25%     { transform: translateX(-50%) rotate(-3deg); }
+  75%     { transform: translateX(-50%) rotate(3deg); }
+}
+
+@media (max-width: 1024px) {
+  .truck-animation-container {
+    padding: 20px;
+  }
+  
+  .truck-animation-container .dashboard {
+    width: 90vw !important;
+    height: 55vw !important;
+    max-width: 960px;
+    max-height: 580px;
+  }
+}
+
 /* Truck status styles */
 .status-en-route {
     color: var(--primary-color);

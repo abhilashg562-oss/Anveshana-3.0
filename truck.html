@@ -18,9 +18,228 @@
   </header>
 
   <main class="truck-dashboard">
-    <div class="truck-header">
-        <h2><i class="fa-solid fa-truck-moving"></i> Live Truck Tracker</h2>
-        <p>Real-time waste collection truck monitoring across Mysuru city</p>
+    <div class="truck-animation-container">
+      <div class="dashboard" id="dash">
+        <!-- COMPLETE TRUCK ANIMATION HTML -->
+        <!-- Windshield -->
+        <div class="windshield" id="windshield">
+
+          <!-- Sky & stars -->
+          <div class="sky"></div>
+          <div class="stars" id="stars"></div>
+
+          <!-- Moon -->
+          <div style="position:absolute;top:12px;right:60px;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffde0,#c8b96e);box-shadow:0 0 20px rgba(255,240,120,0.3);z-index:3"></div>
+
+          <!-- Horizon buildings (dumping site) -->
+          <div class="horizon" id="horizon">
+            <div class="building" style="width:18px;height:35px"></div>
+            <div class="building" style="width:12px;height:20px"></div>
+            <div class="building" style="width:25px;height:50px"></div>
+            <div class="building" style="width:10px;height:28px"></div>
+            <div class="building" style="width:30px;height:42px"></div>
+            <div class="building" style="width:8px;height:18px"></div>
+            <div class="building" style="width:20px;height:36px"></div>
+            <!-- Dumping site chimney with smoke -->
+            <div style="position:relative">
+              <div class="building" style="width:40px;height:55px;background:#1e2838;border-color:#3a4858"></div>
+              <div id="chimney-smoke" style="position:absolute;top:-10px;left:10px;width:8px;height:8px;border-radius:50%;background:rgba(150,150,150,0.4);animation:smokeRise 1.5s ease-out infinite;opacity:0"></div>
+            </div>
+          </div>
+
+          <!-- Road -->
+          <div class="road-container">
+            <div class="road" id="road">
+              <div class="road-line" style="top:10%;height:18%;animation-delay:0s"></div>
+              <div class="road-line" style="top:40%;height:18%;animation-delay:-0.13s"></div>
+              <div class="road-line" style="top:70%;height:18%;animation-delay:-0.27s"></div>
+            </div>
+          </div>
+
+          <!-- Ground sides -->
+          <div class="ground-left"></div>
+          <div class="ground-right"></div>
+
+          <!-- Bins -->
+          <div class="bin" id="bin1" style="left:60%">🗑️</div>
+          <div class="bin" id="bin2" style="left:55%">🗑️</div>
+          <div class="bin" id="bin3" style="left:65%">🗑️</div>
+
+          <!-- Truck SVG -->
+          <svg class="truck-svg" id="truck" viewBox="0 0 160 70" xmlns="http://www.w3.org/2000/svg">
+            <!-- Truck body (garbage truck) -->
+            <!-- Cabin -->
+            <rect x="90" y="18" width="62" height="38" rx="4" fill="#2a5f3a" stroke="#3a8a4a" stroke-width="1.5"/>
+            <!-- Cabin window -->
+            <rect x="115" y="22" width="30" height="20" rx="3" fill="#a0d4f0" opacity="0.7"/>
+            <line x1="130" y1="22" x2="130" y2="42" stroke="#6ab0d0" stroke-width="1" opacity="0.5"/>
+            <!-- Headlights -->
+            <ellipse cx="152" cy="38" rx="5" ry="4" fill="#fffaaa" opacity="0.9"/>
+            <ellipse cx="152" cy="38" rx="5" ry="4" fill="url(#headlight)" opacity="0.5"/>
+            <!-- Cabin door handle -->
+            <rect x="108" y="36" width="6" height="2" rx="1" fill="#5aaa6a"/>
+            <!-- Compactor body -->
+            <rect x="5" y="20" width="90" height="38" rx="2" fill="#1e4a2e" stroke="#2a6a3a" stroke-width="1.5"/>
+            <!-- Compactor ridges -->
+            <line x1="25" y1="20" x2="25" y2="58" stroke="#2a5f3a" stroke-width="1.5"/>
+            <line x1="45" y1="20" x2="45" y2="58" stroke="#2a5f3a" stroke-width="1.5"/>
+            <line x1="65" y1="20" x2="65" y2="58" stroke="#2a5f3a" stroke-width="1.5"/>
+            <line x1="85" y1="20" x2="85" y2="58" stroke="#2a5f3a" stroke-width="1.5"/>
+            <!-- Fill level bar -->
+            <rect x="8" y="24" width="82" height="8" rx="2" fill="#0a1a0a" opacity="0.5"/>
+            <rect x="8" y="24" id="fillBar" width="0" height="8" rx="2" fill="#00ff88" opacity="0.7"/>
+            <!-- Ground Truth logo on truck -->
+            <text x="35" y="48" font-family="monospace" font-size="7" fill="rgba(0,255,136,0.6)" text-anchor="middle">GROUND TRUTH</text>
+            <!-- Wheels -->
+            <circle cx="30" cy="60" r="10" fill="#111" stroke="#333" stroke-width="2"/>
+            <circle cx="30" cy="60" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+            <circle cx="120" cy="60" r="10" fill="#111" stroke="#333" stroke-width="2"/>
+            <circle cx="120" cy="60" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+            <circle cx="140" cy="60" r="8" fill="#111" stroke="#333" stroke-width="2"/>
+            <circle cx="140" cy="60" r="4" fill="#222" stroke="#444" stroke-width="1"/>
+            <!-- Exhaust pipe -->
+            <rect x="92" y="12" width="4" height="12" rx="2" fill="#333"/>
+            <!-- Exhaust smoke placeholder -->
+            <circle id="exhaust" cx="94" cy="8" r="5" fill="rgba(100,100,100,0.3)"/>
+            <defs>
+              <radialGradient id="headlight" cx="50%" cy="50%">
+                <stop offset="0%" stop-color="#fffaaa"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+          </svg>
+
+          <!-- HUD overlays -->
+          <div class="hud-overlay">
+            <div class="hud-panel hud-tl">
+              <div style="color:#00ccff;font-size:9px;letter-spacing:2px;margin-bottom:4px">▶ GROUND TRUTH VBCA</div>
+              <div id="hud-phase">PHASE: PATROLLING</div>
+              <div id="hud-speed">SPEED: 42 km/h</div>
+              <div id="hud-bins">BINS COLLECTED: 0/3</div>
+            </div>
+            <div class="hud-panel hud-tr">
+              <div style="color:#00ccff;font-size:9px;letter-spacing:2px;margin-bottom:4px">GPS ACTIVE ◉</div>
+              <div id="hud-loc">LOC: Kuvempunagar</div>
+              <div id="hud-dist">DIST TO DUMP: 4.2 km</div>
+              <div id="hud-eta">ETA: 6 min</div>
+            </div>
+            <div class="status-bar" id="statusBar">⬡ PATROLLING ROUTE — MONITORING BIN FILL LEVELS</div>
+          </div>
+
+          <!-- Mini GPS map -->
+          <div class="minimap">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" fill="#050810"/>
+              <!-- Roads on minimap -->
+              <line x1="10" y1="40" x2="70" y2="40" stroke="rgba(0,255,136,0.2)" stroke-width="2"/>
+              <line x1="40" y1="10" x2="40" y2="70" stroke="rgba(0,255,136,0.2)" stroke-width="2"/>
+              <line x1="10" y1="20" x2="70" y2="20" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+              <line x1="10" y1="60" x2="70" y2="60" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+              <!-- Bin icons -->
+              <circle id="mbin1" cx="55" cy="35" r="3" fill="#ffaa00" opacity="0.8"/>
+              <circle id="mbin2" cx="62" cy="42" r="3" fill="#ff4444" opacity="0.8"/>
+              <circle id="mbin3" cx="48" cy="48" r="3" fill="#ff4444" opacity="0.8"/>
+              <!-- Dump site -->
+              <rect id="mdump" x="8" y="8" width="10" height="10" rx="2" fill="#00ccff" opacity="0.6"/>
+              <text x="13" y="28" font-family="monospace" font-size="5" fill="rgba(0,200,255,0.5)" text-anchor="middle">DUMP</text>
+              <!-- Truck marker -->
+              <circle id="mTruck" cx="60" cy="40" r="4" fill="#00ff88"/>
+              <circle cx="60" cy="40" r="4" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.5">
+                <animate attributeName="r" from="4" to="10" dur="1.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </div>
+
+          <!-- Fill level radial -->
+          <div class="fill-indicator">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(0,255,136,0.1)" stroke-width="5"/>
+              <circle id="fillArc" cx="30" cy="30" r="24" fill="none" stroke="#00ff88"
+                stroke-width="5" stroke-dasharray="0 151" stroke-linecap="round"
+                style="transition:stroke-dasharray 1s ease,stroke 0.5s"/>
+              <text x="30" y="34" font-family="Orbitron,sans-serif" font-size="11"
+                fill="#00ff88" text-anchor="middle" id="fillPct">0%</text>
+              <text x="30" y="54" font-family="Share Tech Mono,monospace" font-size="6"
+                fill="rgba(0,255,136,0.5)" text-anchor="middle">FILL</text>
+            </svg>
+          </div>
+
+          <!-- Alert flash -->
+          <div class="alert-flash" id="alertFlash"></div>
+
+          <!-- Phase title -->
+          <div class="phase-title" id="phaseTitle"></div>
+
+          <!-- Scan lines -->
+          <div class="scanlines"></div>
+        </div>
+
+        <!-- Dashboard controls -->
+        <div class="dash-controls">
+          <!-- Speedometer -->
+          <div class="gauge-cluster">
+            <div class="gauge">
+              <div class="gauge-ring">
+                <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="35" cy="35" r="28" fill="rgba(0,10,20,0.8)" stroke="rgba(0,255,136,0.15)" stroke-width="2"/>
+                  <path d="M 35 35 m -22 0 a 22 22 0 0 1 44 0" fill="none" stroke="rgba(0,255,136,0.1)" stroke-width="4"/>
+                  <path id="speedArc" d="M 35 35 m -22 0 a 22 22 0 0 1 0 0" fill="none" stroke="#00ff88" stroke-width="4" stroke-linecap="round"/>
+                  <text x="35" y="40" font-family="Orbitron,sans-serif" font-size="13" fill="#00ff88" text-anchor="middle" id="speedVal">42</text>
+                  <text x="35" y="50" font-family="Share Tech Mono,monospace" font-size="6" fill="rgba(0,255,136,0.5)" text-anchor="middle">km/h</text>
+                </svg>
+              </div>
+              <div class="gauge-label">SPEED</div>
+            </div>
+
+            <div class="gauge">
+              <div class="gauge-ring">
+                <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="35" cy="35" r="28" fill="rgba(0,10,20,0.8)" stroke="rgba(255,170,0,0.15)" stroke-width="2"/>
+                  <circle id="rpmArc" cx="35" cy="35" r="22" fill="none" stroke="#ffaa00" stroke-width="3" stroke-dasharray="70 139" stroke-linecap="round" style="transform-origin:35px 35px;animation:rpmSpin 2s linear infinite"/>
+                  <text x="35" y="40" font-family="Orbitron,sans-serif" font-size="10" fill="#ffaa00" text-anchor="middle" id="rpmVal">2.1k</text>
+                  <text x="35" y="50" font-family="Share Tech Mono,monospace" font-size="6" fill="rgba(255,170,0,0.5)" text-anchor="middle">RPM</text>
+                </svg>
+              </div>
+              <div class="gauge-label">ENGINE</div>
+            </div>
+          </div>
+
+          <!-- Center display -->
+          <div class="center-display">
+            <div class="route-label">ACTIVE ROUTE</div>
+            <div class="route-name" id="routeName">KUVEMPUNAGAR → BANNIMANTAP → DUMP</div>
+            <div class="route-stops" id="routeStops">Next stop: Vijayanagar High (85%)</div>
+            <div style="margin-top:8px;display:flex;gap:8px;justify-content:center">
+              <div style="font-size:9px;color:rgba(0,255,136,0.4);border:1px solid rgba(0,255,136,0.2);padding:2px 8px;border-radius:10px" id="tempDisplay">TEMP: 24°C</div>
+              <div style="font-size:9px;color:rgba(0,200,255,0.4);border:1px solid rgba(0,200,255,0.2);padding:2px 8px;border-radius:10px" id="timeDisplay">21:42</div>
+              <div style="font-size:9px;color:rgba(255,170,0,0.4);border:1px solid rgba(255,170,0,0.2);padding:2px 8px;border-radius:10px" id="fuelDisplay">FUEL: 78%</div>
+            </div>
+          </div>
+
+          <!-- Indicator lights + controls -->
+          <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+            <div class="indicators">
+              <div class="ind"><span>COMPACTOR</span><div class="ind-dot" id="indCompactor"></div></div>
+              <div class="ind"><span>GPS LOCK</span><div class="ind-dot on-green" id="indGPS"></div></div>
+              <div class="ind"><span>BIN SENSOR</span><div class="ind-dot on-green" id="indSensor"></div></div>
+              <div class="ind"><span>DUMPING</span><div class="ind-dot" id="indDump"></div></div>
+            </div>
+            <!-- Play button -->
+            <button id="replayBtn" onclick="initAnimation()" style="
+              margin-top:4px;padding:5px 14px;
+              background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);
+              border-radius:4px;color:#00ff88;font-family:'Share Tech Mono',monospace;
+              font-size:9px;cursor:pointer;letter-spacing:1px;
+              text-shadow:0 0 8px rgba(0,255,136,0.5);
+              transition:background 0.2s">↺ REPLAY</button>
+          </div>
+
+          <div class="steering-column"></div>
+        </div>
+      </div>
+    </div>
+      </div>
     </div>
 
     <div class="truck-stats">
@@ -88,5 +307,7 @@
 
   <!-- Your script AFTER Firebase SDK -->
   <script src="js/script.js"></script>
+  <!-- Truck Animation Script -->
+  <script src="truck-animation.js"></script>
 </body>
 </html>
