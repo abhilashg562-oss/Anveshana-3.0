@@ -10,11 +10,35 @@
     --status-low: #28a745;
     --status-medium: #ffc107;
     --status-high: #fd7e14;
-    --status-full: #dc3545;
+--status-full: #dc3545;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-btn {
+    background: rgba(0, 170, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-nav {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 body {
-    background-color: var(--background-color);
+    background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.1), transparent 50%), var(--background-color);
     color: var(--text-color);
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -22,13 +46,15 @@ body {
 }
 
 header {
-    background-color: var(--card-background);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     text-align: center;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 16px;
     margin-bottom: 40px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
@@ -56,12 +82,14 @@ main h2 {
 }
 
 .dustbin-card {
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .dustbin-card:hover {
@@ -94,10 +122,12 @@ main h2 {
     display: inline-block;
     margin-top: 15px;
     padding: 10px 20px;
-    background-color: transparent;
+    background: rgba(0, 170, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
-    border-radius: 5px;
+    border-radius: 12px;
     text-decoration: none;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
@@ -176,14 +206,16 @@ header h1 i.fa-solid {
 }
 
 .fill-level-card {
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     padding: 30px 40px;
     width: 100%;
     max-width: 450px;
     text-align: center;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .fill-level-card h2 {
