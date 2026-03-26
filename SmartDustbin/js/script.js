@@ -18,7 +18,7 @@ const dustbinData = {
         'bin-006': { name: 'Sports Complex', location: 'Adjacent to Cricket Ground, VVCE', fillPercentage: 48, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Medium' },
         'bin-007': { name: 'ECE Department', location: 'Complex, ECE BLOCK, VVCE', fillPercentage: 20, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Low' },
         'bin-008': { name: 'Admin Block Parking', location: 'Visitor Parking, Admin Building, VVCE', fillPercentage: 79, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'High' },
-        'bin-009': { name: 'Food Court VVCE', location: 'Main Food Court, VVCE Campus', fillPercentage: 100, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full' }
+        'bin-009': { name: 'Food Court VVCE', location: 'Main Food Court, VVCE Campus', fillPercentage: 100, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full', currentWeight: 20.0, holdStartTime: null }
     };
 
     // --- Router ---
@@ -93,22 +93,38 @@ const dustbinData = {
      *  with an actual API call to your backend/IoT platform.
      * 
      */
-    function simulateRealTimeData(binId) {
-        // ** FRIEND'S TO-DO: **
-        // 1. Remove this simulation logic.
-        // 2. Make a 'fetch' call to your API endpoint.
-        //    e.g., fetch(`https://your-api.com/dustbins/${binId}`)
-        // 3. Get the JSON response.
-        // 4. Update the `dustbinData` object with the new fill level and status.
-        
-        // --- Start of Simulation Logic (to be replaced) ---
-        let currentPercentage = dustbinData[binId].fillPercentage;
-        let newPercentage = currentPercentage + Math.floor(Math.random() * 5) - 2; // Fluctuate fill level
-        newPercentage = Math.max(0, Math.min(100, newPercentage)); // Clamp between 0 and 100
+function simulateRealTimeData(binId) {
+        const MAX_WEIGHT = 20;
+        const MIN_INC = 0.1;
+        const MAX_INC = 0.3;
+        const HOLD_DURATION = 10000; // 10 seconds
 
-        dustbinData[binId].fillPercentage = newPercentage;
-        dustbinData[binId].status = getStatusFromFillPercentage(newPercentage);
-        // --- End of Simulation Logic ---
+        let bin = dustbinData[binId];
+        if (bin.currentWeight === undefined) {
+          bin.currentWeight = parseFloat(getWeight(bin.fillPercentage));
+          bin.holdStartTime = null;
+        }
+
+        const now = Date.now();
+
+        // Check if hold period ended
+        if (bin.holdStartTime && (now - bin.holdStartTime) >= HOLD_DURATION) {
+          bin.currentWeight = 0;
+          bin.holdStartTime = null;
+        } else if (bin.currentWeight >= MAX_WEIGHT) {
+          // Hold at max or start hold
+          if (!bin.holdStartTime) bin.holdStartTime = now;
+          bin.currentWeight = MAX_WEIGHT;
+        } else {
+          // Gradual increment
+          const increment = MIN_INC + Math.random() * (MAX_INC - MIN_INC);
+          bin.currentWeight += increment;
+          bin.holdStartTime = null;
+        }
+
+        // Update derived values
+        bin.fillPercentage = Math.min(100, (bin.currentWeight / MAX_WEIGHT * 100));
+        bin.status = getStatusFromFillPercentage(bin.fillPercentage);
     }
 
     function updateDustbinDetails(binId) {

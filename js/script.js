@@ -35,7 +35,7 @@ const dustbinData = {
   'bin-012': { name: 'Udayagiri', location: 'Udayagiri, Mysuru', fillPercentage: 78, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'High' },
   'bin-013': { name: 'Bogadi', location: 'Bogadi, Mysuru', fillPercentage: 55, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Medium' },
   'bin-014': { name: 'Yadavagiri', location: 'Yadavagiri, Mysuru', fillPercentage: 18, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Low' },
-  'bin-015': { name: 'JSS Road Area', location: 'JSS Road, Mysuru', fillPercentage: 95, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full' }
+  'bin-015': { name: 'JSS Road Area', location: 'JSS Road, Mysuru', fillPercentage: 95, maxCapacity: MAX_CAPACITY_WEIGHT, status: 'Full', currentWeight: 19.0, holdStartTime: null }
 };
 
 // Truck data for Truck Dashboard
@@ -151,13 +151,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('progress-bar-inner').style.backgroundColor = statusColor;
   }
 
-  function simulateRealTimeData(binId) {
+function simulateRealTimeData(binId) {
     if (binId === 'bin-001') return;
-    let currentPercentage = dustbinData[binId].fillPercentage;
-    let newPercentage = currentPercentage + Math.floor(Math.random() * 5) - 2;
-    newPercentage = Math.max(0, Math.min(100, newPercentage));
-    dustbinData[binId].fillPercentage = newPercentage;
-    dustbinData[binId].status = getStatusFromFillPercentage(newPercentage);
+
+    const MAX_WEIGHT = 20;
+    const MIN_INC = 0.1;
+    const MAX_INC = 0.3;
+    const HOLD_DURATION = 10000; // 10 seconds
+
+    let bin = dustbinData[binId];
+    if (bin.currentWeight === undefined) {
+      bin.currentWeight = parseFloat(getWeight(bin.fillPercentage));
+      bin.holdStartTime = null;
+    }
+
+    const now = Date.now();
+
+    // Check if hold period ended
+    if (bin.holdStartTime && (now - bin.holdStartTime) >= HOLD_DURATION) {
+      bin.currentWeight = 0;
+      bin.holdStartTime = null;
+    } else if (bin.currentWeight >= MAX_WEIGHT) {
+      // Hold at max or start hold
+      if (!bin.holdStartTime) bin.holdStartTime = now;
+      bin.currentWeight = MAX_WEIGHT;
+    } else {
+      // Gradual increment
+      const increment = MIN_INC + Math.random() * (MAX_INC - MIN_INC);
+      bin.currentWeight += increment;
+      bin.holdStartTime = null;
+    }
+
+    // Update derived values
+    bin.fillPercentage = Math.min(100, (bin.currentWeight / MAX_WEIGHT * 100));
+    bin.status = getStatusFromFillPercentage(bin.fillPercentage);
   }
 
   function getStatusFromFillPercentage(percentage) {
