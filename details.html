@@ -21,15 +21,15 @@
     <main class="details-main">
       <div class="fill-level-card">
         <h2><i class="fa-solid fa-fill-drip"></i> Current Fill Level</h2>
-        <p>Status: <span id="dustbin-status" class="status-medium">Medium</span></p>
+        <p>Status: <span id="dustbin-status">Loading...</span></p>
         <div class="fill-percentage">
-<span id="fill-level-value">12.6</span> kg
+<span id="fill-level-value">--</span> kg
         </div>
-        <p class="fill-level-text">Full</p>
+        <p class="fill-level-text">Loading...</p>
         <div class="progress-bar">
-          <div id="progress-bar-inner" class="progress-bar-inner" style="width: 66%;"></div>
+          <div id="progress-bar-inner" class="progress-bar-inner" style="width: 0%;"></div>
         </div>
-        <p class="update-info">Updates automatically every 7 seconds.</p>
+        <p class="update-info">Updates automatically every 6 seconds from Firebase.</p>
       </div>
     </main>
 
@@ -39,12 +39,11 @@
     </footer>
   </div>
 
-  <!-- Firebase SDKs loaded FIRST -->
- <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-  <!-- Your Script -->
+  <!-- App Script -->
   <script src="js/script.js"></script>
 </body>
 </html>
