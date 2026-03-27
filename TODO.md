@@ -1,24 +1,28 @@
-# Truck Dashboard Animation Integration ✅
+# Implementation TODO - Firebase Live Data to Inner Dashboard
 
-## COMPLETED ✅ Truck Dashboard Animation Integration
+## [x] 1. Planning Complete
+- [x] Analyzed files (index.html, details.html, js/script.js)
+- [x] Created detailed edit plan
+- [x] User approved plan
 
-**All steps completed successfully:**
+## [x] 2. Remove Live Summary Block
+- [x] Edit index.html: Delete `<div class="dashboard-summary glass">` block
+- [x] Verify layout intact (grid flows naturally)
 
-- ✅ Step 1: Updated css/style.css - Added .truck-animation styles + responsive container
-- ✅ Step 2: Updated truck.html - Replaced "Live Truck Tracker" section with animation dashboard  
-- ✅ Step 3: Added scoped animation CSS (HUD styles, animations, responsive) to style.css
-- ✅ Step 4: Inserted complete animation HTML (windshield, truck SVG, HUD, gauges, minimap)
-- ✅ Step 5: Created truck-animation.js with full JS logic (stars, rain, bin collection, phases, dump)
-- ✅ Step 6: Linked truck-animation.js to truck.html 
-- ✅ Step 7: Preserved existing truck stats/route sections below animation
+## [x] 3. Update js/script.js
+- [x] Remove `live-summary-*` ID updates from `updateDashboard`
+- [x] Add updates for details.html IDs:
+  | ID/class          | Update                  |
+  |-------------------|-------------------------|
+  | `#dustbin-status` | text + status class     |
+  | `#fill-level-value` | weight (no 'kg')      |
+  | `.fill-level-text`| fill %                  |
+  | `#progress-bar-inner` | width % + class   |
+- [x] Preserve error handling/fetch/interval
 
-**Features integrated:**
-- Full cyberpunk truck dashboard animation (patrol → collect bins → dump → complete)
-- Responsive design (scales on mobile)
-- REPLAY button 
-- Real-time clock sync
-- HUD updates, particle effects, minimap, fill meters
-- Site header/nav + existing stats preserved
-
-**Test:** Open `truck.html` - animation auto-starts in "Live Truck Tracker" position!
-- [ 
+## [ ] 4. Testing & Validation
+- [ ] Load index.html: Confirm summary block gone, no layout break
+- [ ] Load details.html?id=bin-002: Confirm live updates every 6s (status/weight/fill/progress)
+- [ ] Check console: No errors, fetches succeed
+- [ ] Other pages/bins unchanged
+- [ ] Mark complete
